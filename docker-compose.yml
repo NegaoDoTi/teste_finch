@@ -1,0 +1,45 @@
+version: '3.1'
+
+services:
+  
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: always
+    ports:
+      - 5672:5672
+      - 15672:15672
+      - 15692:15692
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    container_name: rabbitmq-server
+    networks:
+      - teste_finch
+
+  web:
+    build:
+      context: ./web
+      dockerfile: web.dockerfile
+    depends_on:
+      - rabbitmq
+    volumes:
+      - ./web:/web
+      - ./web/static/downloads:/web/static/downloads
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - RABBIT_HOST=${RABBIT_HOST}
+      - RABBIT_USER=${RABBIT_USER}
+      - RABBIT_PASSWORD=${RABBIT_PASSWORD}
+      - RABBIT_PORT=${RABBIT_PORT}
+      - RABBIT_VHOST=${RABBIT_VHOST}
+      - RABBIT_QUEUE=${RABBIT_QUEUE}
+    ports:
+      - 5000:5000
+    container_name: web-python
+    networks:
+      - teste_finch
+
+networks:
+  teste_finch:
+    driver: bridge
+

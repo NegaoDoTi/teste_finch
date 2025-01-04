@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.css')}}">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card shadow">
+            <div class="card-header text-center bg-primary text-white">
+                <h4>Upload PDFs</h4>
+            </div>
+            <div class="card-body">
+                <form id="uploadForm" action="/upload/pdfs" method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="pdfFiles" class="form-label">Escolha até 5 arquivos PDF:</label>
+                        <input type="file" class="form-control" id="pdfFiles" name="pdfFiles" accept="application/pdf" multiple required>
+                        <small class="form-text text-muted">Apenas arquivos PDF são permitidos. Tamanho máximo: 5 arquivos.</small>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.bundle.min.js')}}" ></script>
+</body>
+</html>
