@@ -29,7 +29,7 @@ class UploadController:
             files = req.files.getlist('pdfFiles')
             
             if len(files) > 5:
-                return jsonify({"message" : "Erro foram enviado uma quantidade maior de pdfs"}), 400
+                return jsonify({"message" : "Erro foram enviados uma quantidade maior de arquivos pdf"}), 400
             
             rabbit_publish = RabbitPublish()
             

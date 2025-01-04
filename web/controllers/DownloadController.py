@@ -1,7 +1,7 @@
 from pathlib import Path
 from flask import send_file, jsonify
 from config.serializer import serializer
-from itsdangerous.exc import SignatureExpired
+from itsdangerous.exc import SignatureExpired, BadSignature
 from traceback import format_exc
 import logging
 
@@ -34,12 +34,15 @@ class DownloadController:
                 authorization = req.headers.get("token")
                 
                 if not authorization:
-                    return jsonify({"message" : "Erro token não fornecido!"}), 401
+                    return jsonify({"message" : "Erro acesso negado, token não fornecido!"}), 401
                 
                 try:
-                    token = serializer.loads(authorization, max_age=86400) # Verifica se o token ja execeu as 24 horas
+                    token = serializer.loads(authorization, max_age=86400) # Verifica se o token ja execeu as 24 horas, ou é invalido
                 except SignatureExpired:
-                    return jsonify({"message" : "Erro token expirado!"}), 403
+                    return jsonify({"message" : "Erro acesso negado, token expirado!"}), 401
+                
+                except BadSignature:
+                    return jsonify({"message" : "Erro acesso negado, token incorreto!"}), 401
                 
                 path_file = Path(Path(self.download_folder), archive_name)
                 
