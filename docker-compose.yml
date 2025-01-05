@@ -39,6 +39,28 @@ services:
     networks:
       - teste_finch
 
+  pdf_reader:
+    build:
+      context: ./pdf_reader
+      dockerfile: pdf_reader.dockerfile
+    depends_on:
+      - rabbitmq
+      - web
+    volumes:
+      - ./pdf_reader:/pdf_reader
+      - ./pdf_reader/downloads:/pdf_reader/downloads
+      - ./pdf_reader/results:/pdf_reader/results
+    environment:
+      - RABBIT_HOST=${RABBIT_HOST}
+      - RABBIT_USER=${RABBIT_USER}
+      - RABBIT_PASSWORD=${RABBIT_PASSWORD}
+      - RABBIT_PORT=${RABBIT_PORT}
+      - RABBIT_VHOST=${RABBIT_VHOST}
+      - RABBIT_QUEUE=${RABBIT_QUEUE}
+    container_name: pdf_reader-python
+    networks:
+      - teste_finch
+
 networks:
   teste_finch:
     driver: bridge

@@ -1,3 +1,5 @@
 # teste_finch
 
-docker-compose --env-file ./web/.env up --build
+docker-compose build --no-cache
+
+docker-compose up
