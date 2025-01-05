@@ -1,0 +1,5 @@
+pika
+python-dotenv
+requests
+schedule
+pypdf2
