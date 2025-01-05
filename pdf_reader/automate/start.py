@@ -1,5 +1,6 @@
 from rabbit.consume import RabbitConsume
 from utils.manage_files import ManageFiles
+from reader.extract_pdf import ExtractPDFData
 
 class StartPdfReader:
     
@@ -14,13 +15,20 @@ class StartPdfReader:
                 
                 result = self._consume.consume_one()
                 if result["error"] == True:
+                    print(result["type"])
                     break
                 
                 download = self._manage_files.download_pdf_file(**result["message"])
                 if download["error"] == True:
+                    print(download["type"])
                     continue
+                                
+                extractor = ExtractPDFData()
                 
-                pdf = download["pdf"]
+                result_extract = extractor.extract_data_pdf(download["pdf"])
+                if result_extract["error"] == True:
+                    print(result_extract["type"])
+                    continue
                 
         except Exception:
             ...

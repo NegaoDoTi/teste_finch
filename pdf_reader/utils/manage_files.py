@@ -43,4 +43,6 @@ class ManageFiles:
             
             logging.error(f"{format_exc()} token: {token} url: {url}")
             return {"error" : True, "type" : f"Erro inesperado ao efetuar download do arquivo PDF! token: {token} url: {url}", "pdf" : ""}
-        
+    
+    def generate_excel_file(self, author_data:dict, reus_data:dict):
+        ...

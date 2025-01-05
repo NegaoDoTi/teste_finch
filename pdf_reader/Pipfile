@@ -8,6 +8,7 @@ pika = "*"
 python-dotenv = "*"
 requests = "*"
 schedule = "*"
+pypdf2 = "*"
 
 [dev-packages]
 

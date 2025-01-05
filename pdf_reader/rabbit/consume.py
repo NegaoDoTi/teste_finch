@@ -20,7 +20,7 @@ class RabbitConsume:
                 
                 message = body.decode("utf-8")
                 
-                self.__channel.basic_ack(delivery_tag=method_frame.delivery_tag)
+                #self.__channel.basic_ack(delivery_tag=method_frame.delivery_tag)
                 
                 message = loads(message)
                 

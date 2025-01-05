@@ -1,7 +1,7 @@
 import logging
 from datetime import datetime
 from schedule import every, repeat, run_pending
-from reader.start import StartPdfReader
+from automate.start import StartPdfReader
 from time import sleep
 
 logging.basicConfig(filename="pdf_reader.log", filemode="a", format='%(asctime)s - %(levelname)s - %(message)s', level=logging.DEBUG)
