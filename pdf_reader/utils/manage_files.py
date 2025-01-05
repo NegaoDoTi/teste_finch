@@ -20,13 +20,12 @@ class ManageFiles:
             
     def download_pdf_file(self, token:str, url:str) -> dict[bool, str, str]:
         try:
+            
             header = {
                 "token" : token
             }
             
-            url = url.replace("web", "localhost")
-            
-            download = get(url=url, headers=header, verify=False, stream=True)
+            download = get(url=url, headers=header, stream=True)
             
             download.raise_for_status()
             
