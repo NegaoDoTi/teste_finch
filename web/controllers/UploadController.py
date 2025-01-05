@@ -48,7 +48,7 @@ class UploadController:
             
             rabbit_publish.channel.close()
             
-            return jsonify({"message" : "Arquivos enviados com sucesso!"}), 200
+            return jsonify({"message" : "Arquivos enviados com sucesso! Verifique a pasta pdf_reader/results para ter acesso as planilhas"}), 200
         
         except Exception:
             return jsonify({"message" : "Erro inesperado ao enviar arquivos! Contate o ADM"}), 500

@@ -13,7 +13,7 @@
                 <h4>Upload PDFs</h4>
             </div>
             <div class="card-body">
-                <form id="uploadForm" action="/upload/pdfs" method="POST" enctype="multipart/form-data">
+                <form id="uploadForm">
                     <div class="mb-3">
                         <label for="pdfFiles" class="form-label">Escolha até 5 arquivos PDF:</label>
                         <input type="file" class="form-control" id="pdfFiles" name="pdfFiles" accept="application/pdf" multiple required>
@@ -27,5 +27,6 @@
         </div>
     </div>
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.bundle.min.js')}}" ></script>
+    <script src="{{url_for('static', filename='js/upload_pdf.js')}}"></script>
 </body>
 </html>
