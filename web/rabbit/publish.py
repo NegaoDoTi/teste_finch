@@ -13,7 +13,7 @@ class RabbitPublish:
         
         self.channel.queue_declare(RABBIT_QUEUE, durable=True)
         
-    def publish_one(self, token:str, url:str) -> dict:
+    def publish_one(self, token:str, url:str) -> dict[bool, str, str]:
         """Função responsavel por publicar token e url em uma fila rabbit
 
         Args:
