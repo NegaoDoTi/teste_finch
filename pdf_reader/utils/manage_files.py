@@ -1,6 +1,7 @@
 from pathlib import Path
 from requests import get
 from traceback import format_exc
+from openpyxl import Workbook
 import logging
 
 class ManageFiles:
@@ -44,5 +45,29 @@ class ManageFiles:
             logging.error(f"{format_exc()} token: {token} url: {url}")
             return {"error" : True, "type" : f"Erro inesperado ao efetuar download do arquivo PDF! token: {token} url: {url}", "pdf" : ""}
     
-    def generate_excel_file(self, author_data:dict, reus_data:dict):
-        ...
+    def generate_excel_file(self, author_data:dict, reus_data:dict, name_file:str):
+        try:
+            wb = Workbook()
+            
+            ws = wb.active
+            
+            headline = ["NOME AUTOR", "DOCUMENTO AUTOR", "NOMES RÉUS", "DOCUMENTOS RÉUS"]
+            
+            ws.append(headline)
+            
+            line = [author_data["author_name"], author_data["author_document"], reus_data["reus_names"], reus_data["reus_documents"]]
+            
+            ws.append(line)
+            
+            name_file = name_file.split("/")[-1].replace(".pdf", ".xlsx")
+            
+            path_xlsx = f"{self.result_folder}/{name_file}"
+            
+            wb.save(path_xlsx)
+            
+            return {"error" : False, "type" : "", "path_xlsx" : path_xlsx}
+            
+        except Exception:
+            
+            logging.error(f"{format_exc()} author_data {author_data}, reus_data: {reus_data}")
+            return {"error" : True, "type" : f"Erro inesperado ao gerar arquivo xlsx author_data {author_data}, reus_data: {reus_data}"}

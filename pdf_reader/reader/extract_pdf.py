@@ -81,15 +81,16 @@ class ExtractPDFData:
         reus_documents_pattern = r"\s*?(\d{3}\s*?\.?\s*?\d{3}\s*?\.?\s*?\d{3}\s*?-?\s*?\d{2})|\s*?(\d{2}\s*?\.?\s*?\d{3}\s*?\.?\s*?\d{3}/\d{4}\s*?-?\s*?\d{2})"
         
         try:
-            reus_names = re.findall(reus_names_pattern, string_part, re.IGNORECASE)
+            reus_names = re.findall(reus_names_pattern, string_part, re.IGNORECASE)[0]
         except:
             return {"error" : True, "type" : "Erro nome dos reus não encontrado no pdf", "reus_names" : "", "reus_documents" : ""}
         
         try:
             reus_documents = re.findall(reus_documents_pattern, string_part, re.IGNORECASE)
+            reus_documents = ", ".join( item for data in reus_documents for item in data if item.strip() )
         except:
             return {"error" : True, "type" : "Erro documentos dos reus não encontrado no pdf", "reus_names" : "", "reus_documents": ""}
         
-        return {"reus_names" : reus_names, "reus_documents" : "|".join(reus_documents)}
+        return {"error" : False, "type" : "", "reus_names" : reus_names, "reus_documents" : reus_documents}
 
         

@@ -9,6 +9,7 @@ python-dotenv = "*"
 requests = "*"
 schedule = "*"
 pypdf2 = "*"
+openpyxl = "*"
 
 [dev-packages]
 

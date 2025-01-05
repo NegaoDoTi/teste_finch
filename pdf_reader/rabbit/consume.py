@@ -10,17 +10,17 @@ class RabbitConsume:
         self.__credentials = PlainCredentials(RABBIT_USER, RABBIT_PASSWORD)
         self.__parameters = ConnectionParameters(host=RABBIT_HOST, port=RABBIT_PORT, virtual_host=RABBIT_VHOST, credentials=self.__credentials)
         self.__connection = BlockingConnection(self.__parameters)
-        self.__channel = self.__connection.channel()
+        self.channel = self.__connection.channel()
         
     def consume_one(self) -> dict[bool, str, str, dict]:
         try:
-            method_frame, header_frame, body = self.__channel.basic_get(queue=RABBIT_QUEUE)
+            method_frame, header_frame, body = self.channel.basic_get(queue=RABBIT_QUEUE)
             
             if method_frame:
                 
                 message = body.decode("utf-8")
                 
-                #self.__channel.basic_ack(delivery_tag=method_frame.delivery_tag)
+                self.channel.basic_ack(delivery_tag=method_frame.delivery_tag)
                 
                 message = loads(message)
                 

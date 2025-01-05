@@ -3,3 +3,4 @@ python-dotenv
 requests
 schedule
 pypdf2
+openpyxl
