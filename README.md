@@ -37,7 +37,7 @@
 
     Siga as etapas abaixo para configurar e executar o projeto localmente:
 
-    1. Clones este repositório:
+    1. Clone este repositório:
         git clone https://github.com/NegaoDoTi/teste_finch
     
     2. Navegue para o diretório do projeto:
